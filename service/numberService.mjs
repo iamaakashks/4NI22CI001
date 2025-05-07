@@ -11,14 +11,13 @@ export async function fetchNumbers(id) {
     r: 'rand'
   };
 
-  const endpoint = endpoints[id];
-  const url = `${config.TEST_SERVER_URL}/${endpoint}`;
+  const url = `${config.TEST_SERVER_URL}/${endpoints[id]}`;
 
   try {
     const response = await axios.get(url, { timeout: 500 });
     return response.data.numbers || [];
   } catch (error) {
-    console.error(`Fetch failed for ${id}:`, error.message);
+    console.error(`Error fetching ${id} numbers:`, error.message);
     return [];
   }
 }

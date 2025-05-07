@@ -1,12 +1,7 @@
-import { fetchNumbers, getStoredNumbers, storeNumbers } from '../services/numberService.mjs';
+import { fetchNumbers, getStoredNumbers, storeNumbers } from '../service/numberService.mjs';
 import _ from 'lodash';
 
-const validIds = {
-  p: 'prime',
-  f: 'fibonacci',
-  e: 'even',
-  r: 'random'
-};
+const validIds = { p: 'prime', f: 'fibonacci', e: 'even', r: 'random' };
 
 export default async function averageController(req, res, next) {
   try {
@@ -22,10 +17,11 @@ export default async function averageController(req, res, next) {
 
     const updated = _.uniq([...prevState, ...numbers]);
     while (updated.length > windowSize) {
-      updated.shift(); // remove oldest
+      updated.shift();
     }
 
     storeNumbers(updated);
+
     const avg = updated.length ? (_.mean(updated)).toFixed(2) : 0;
 
     res.json({
